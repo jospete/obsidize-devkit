@@ -1,0 +1,43 @@
+{
+  "name": "@obsidize/devkit",
+  "version": "0.0.1",
+  "description": "Build tools for obsidize packages",
+  "main": "index.cjs.js",
+  "author": "Josh Noel <obsidize@gmail.com>",
+  "license": "MIT",
+  "bin": {
+    "obsidize": "cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jospete/obsidize-devkit.git"
+  },
+  "scripts": {
+    "build:tsc": "tsc",
+    "build": "run-s build:tsc copy:assets module:pack",
+    "clean": "rimraf ./dist",
+    "rebuild": "run-s clean build",
+    "copy:package": "cpy ./package.json ./dist/",
+    "copy:readme": "cpy ./README.md ./dist/",
+    "copy:assets": "run-p copy:package copy:readme",
+    "module:pack": "node ./dist/cli.js release pack",
+    "git:publish": "node ./dist/cli.js release publish",
+    "dist:publish": "npm publish dist",
+    "release:test": "run-s rebuild",
+    "release:publish": "run-s git:publish dist:publish",
+    "release:prepare:patch": "node ./dist/cli.js release prepare --release-as patch",
+    "bump": "run-s release:prepare:patch release:test release:publish"
+  },
+  "dependencies": {
+    "cpy-cli": "^3.1.1",
+    "rimraf": "^3.0.2",
+    "tslib": "^2.3.1",
+    "yargs": "^17.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "16.11.2",
+    "@types/yargs": "17.0.4",
+    "npm-run-all": "4.1.5",
+    "typescript": "4.4.4"
+  }
+}
