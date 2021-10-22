@@ -5,7 +5,7 @@ import { execSync } from 'child_process';
 import { config } from './config';
 
 export function getAbsolutePath(...parts: string[]): string {
-	return path.resolve(path.join(process.cwd(), ...parts)).replace(/[\r\n|\n|\r]/gm, '');
+	return path.resolve(path.join(config.cwd, ...parts)).replace(/[\r\n|\n|\r]/gm, '');
 }
 
 export function loadProjectPackageVersion(): string {
