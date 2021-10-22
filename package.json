@@ -1,6 +1,6 @@
 {
   "name": "@obsidize/devkit",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Build tools for obsidize packages",
   "author": "Josh Noel <obsidize@gmail.com>",
   "license": "MIT",
