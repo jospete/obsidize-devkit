@@ -20,7 +20,7 @@
     "copy:package": "cpy ./package.json ./dist/",
     "copy:readme": "cpy ./README.md ./dist/",
     "copy:assets": "run-p copy:package copy:readme",
-    "module:pack": "node ./dist/cli.js release pack --cwd dist",
+    "module:pack": "node ./dist/cli.js release pack",
     "git:publish": "node ./dist/cli.js release publish",
     "dist:publish": "npm publish dist",
     "release:test": "run-s rebuild",

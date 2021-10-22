@@ -51,11 +51,16 @@ export const buildCommandLine = () => yargs
 				'pack',
 				'packs the target module using npm, and moves the result to the given output directory (--out)',
 				packYargs => packYargs
+					.option('src', {
+						description: 'optionally specify input directory',
+						default: 'dist',
+						required: false
+					})
 					.option('out', {
-						description: 'optional output directory, used based on command context',
-						default: './packed',
+						description: 'optionally specify output directory',
+						default: 'packed',
 						required: false
 					}),
-				argv => runCommand(argv, () => generateAndCopyPackedProjectModule(argv.out + ''))
+				argv => runCommand(argv, () => generateAndCopyPackedProjectModule(argv.src, argv.out))
 			)
 	);

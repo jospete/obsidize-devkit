@@ -14,16 +14,16 @@ export function loadProjectPackageVersion(): string {
 	return version;
 }
 
-export function execCliCommand(cmd: string): void {
-	console.log('> ' + cmd);
+export function execCliCommand(cmd: string, cwd: string = config.cwd): void {
+	console.log('[' + cwd + '] > ' + cmd);
 	if (config.dryRun) return;
-	execSync(cmd, { cwd: config.cwd, stdio: 'inherit' });
+	execSync(cmd, { cwd, stdio: 'inherit' });
 }
 
-export function execCliCommandForResult(cmd: string): Buffer {
-	console.log('> ' + cmd);
+export function execCliCommandForResult(cmd: string, cwd: string = config.cwd): Buffer {
+	console.log('[' + cwd + '] > ' + cmd);
 	if (config.dryRun) return Buffer.from([0]);
-	return execSync(cmd, { cwd: config.cwd, stdio: 'pipe' });
+	return execSync(cmd, { cwd, stdio: 'pipe' });
 }
 
 export function git(cmd: string): void {
@@ -38,8 +38,8 @@ export function releasePrepare(version: string): void {
 	execCliCommand('npm version --git-tag-version=false --allow-same-version=true ' + version);
 }
 
-export function generatePackedProjectModule(): string {
-	return execCliCommandForResult('npm pack').toString();
+export function generatePackedProjectModule(directory: string): string {
+	return execCliCommandForResult('npm pack', directory).toString();
 }
 
 export function removeVersionSuffix(input: string, version: string): string {
@@ -74,12 +74,15 @@ export function releasePublish(): void {
 	git('push origin ' + currentBranchName);
 }
 
-export function generateAndCopyPackedProjectModule(outputDirectory: string): void {
+export function generateAndCopyPackedProjectModule(
+	inputDirectory: string,
+	outputDirectory: string
+): void {
 
 	const version = loadProjectPackageVersion();
-	const tarballFileName = generatePackedProjectModule();
-	const tarballInputPath = getAbsolutePath(tarballFileName);
+	const tarballFileName = generatePackedProjectModule(inputDirectory);
 	const tarballWithoutVersion = removeVersionSuffix(tarballFileName, version);
+	const tarballInputPath = getAbsolutePath(inputDirectory, tarballFileName);
 	const tarballOutputPath = getAbsolutePath(outputDirectory, tarballWithoutVersion);
 	const absOutputDirectory = path.dirname(tarballOutputPath);
 
