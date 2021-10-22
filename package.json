@@ -1,6 +1,6 @@
 {
   "name": "@obsidize/devkit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Build tools for obsidize packages",
   "main": "index.cjs.js",
   "author": "Josh Noel <obsidize@gmail.com>",
