@@ -8,7 +8,7 @@
     "importHelpers": true,
     "skipLibCheck": true,
     "strict": true,
-    "module": "CommonJS",
+    "module": "UMD",
     "moduleResolution": "node",
     "outDir": "./dist",
     "rootDir": "src",
