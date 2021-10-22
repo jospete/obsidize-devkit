@@ -1,6 +1,7 @@
 import * as yargs from 'yargs';
 
 import { config } from './config';
+import { environment } from './environment';
 import { generateAndCopyPackedProjectModule, releasePrepare, releasePublish } from './core';
 
 const noop = () => {
@@ -13,6 +14,8 @@ const runCommand = (argv: any, action: () => void): void => {
 };
 
 export const buildCommandLine = () => yargs
+	.version(environment.version)
+	.help(true)
 	.wrap(null)
 	.showHelpOnFail(true)
 	.demandCommand()

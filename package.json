@@ -6,13 +6,14 @@
   "author": "Josh Noel <obsidize@gmail.com>",
   "license": "MIT",
   "bin": {
-    "obsidize": "cli.js"
+    "obsidize": "./bin/cli.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jospete/obsidize-devkit.git"
   },
   "scripts": {
+    "version": "node ./scripts/sync-env.js",
     "build:tsc": "tsc",
     "build": "run-s build:tsc copy:assets module:pack",
     "clean": "rimraf ./dist",
