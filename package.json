@@ -2,11 +2,11 @@
   "name": "@obsidize/devkit",
   "version": "1.0.4",
   "description": "Build tools for obsidize packages",
-  "main": "index.cjs.js",
   "author": "Josh Noel <obsidize@gmail.com>",
   "license": "MIT",
+  "main": "index.cjs.js",
   "bin": {
-    "obsidize": "./bin/cli.js"
+    "obsidize": "./cli.cjs.js"
   },
   "repository": {
     "type": "git",
@@ -15,18 +15,19 @@
   "scripts": {
     "version": "node ./scripts/sync-env.js",
     "build:tsc": "tsc",
-    "build": "run-s build:tsc copy:assets module:pack",
+    "build:webpack": "webpack --config webpack.config.js",
+    "build": "run-s build:tsc build:webpack copy:assets module:pack",
     "clean": "rimraf ./dist",
     "rebuild": "run-s clean build",
     "copy:package": "cpy ./package.json ./dist/",
     "copy:readme": "cpy ./README.md ./dist/",
     "copy:assets": "run-p copy:package copy:readme",
-    "module:pack": "node ./dist/cli.js release pack",
-    "git:publish": "node ./dist/cli.js release publish",
+    "module:pack": "node ./dist/cli.cjs.js release pack",
+    "git:publish": "node ./dist/cli.cjs.js release publish",
     "dist:publish": "npm publish dist",
     "release:test": "run-s rebuild",
     "release:publish": "run-s git:publish dist:publish",
-    "release:prepare:patch": "node ./dist/cli.js release prepare --release-as patch",
+    "release:prepare:patch": "node ./dist/cli.cjs.js release prepare --release-as patch",
     "bump": "run-s release:prepare:patch release:test release:publish"
   },
   "dependencies": {
@@ -39,6 +40,9 @@
     "@types/node": "16.11.2",
     "@types/yargs": "17.0.4",
     "npm-run-all": "4.1.5",
-    "typescript": "4.4.4"
+    "ts-loader": "9.2.6",
+    "typescript": "4.4.4",
+    "webpack": "5.59.1",
+    "webpack-cli": "4.9.1"
   }
 }
