@@ -13,7 +13,7 @@ npm install --save-dev @obsidize/devkit
 - tarball:
 
 ```bash
-npm install --save-dev https://github.com/jospete/obsidize-devkit/blob/master/packed/obsidize-devkit.tgz
+npm install --save-dev https://github.com/jospete/obsidize-devkit/raw/master/packed/obsidize-devkit.tgz
 ```
 
 **NOTE:** you can also target a specific version in git by substituting "master" with any release branch "release/vX.Y.Z"
